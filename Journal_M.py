@@ -4,7 +4,7 @@ import time
 import pygame
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QPushButton, QLabel, QMessageBox,
-    QInputDialog, QWidget, QDialog, QListWidget, QListWidgetItem, QTextEdit, QComboBox
+    QInputDialog, QWidget, QDialog, QListWidget, QListWidgetItem, QTextEdit, QComboBox, QSlider
 )
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
@@ -141,7 +141,7 @@ class JournalApp(QMainWindow):
         # Initialize pygame for playing music
         pygame.mixer.init()
         pygame.mixer.music.load("/Users/pedritos22/Desktop/relaxing_music.mp3")  # Load your relaxing music file here
-        pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+        pygame.mixer.music.set_volume(0.5)  # Set initial volume (0.0 to 1.0)
         pygame.mixer.music.play(-1)  # Play the music indefinitely
 
         # Set window title and dimensions
@@ -169,6 +169,14 @@ class JournalApp(QMainWindow):
         self.add_entry_btn.clicked.connect(self.add_entry)
         self.main_layout.addWidget(self.add_entry_btn)
 
+        # Volume Slider
+        self.volume_slider = QSlider(Qt.Horizontal, self)
+        self.volume_slider.setRange(0, 100)  # Volume range from 0 to 100
+        self.volume_slider.setValue(50)  # Set initial value to 50
+        self.volume_slider.valueChanged.connect(self.change_volume)  # Connect slider change to function
+        self.main_layout.addWidget(QLabel("Volume:"))
+        self.main_layout.addWidget(self.volume_slider)
+
         # Footer Label
         self.footer_label = QLabel("Yournal™", self)
         self.footer_label.setAlignment(Qt.AlignCenter)
@@ -182,6 +190,11 @@ class JournalApp(QMainWindow):
 
         # Load entries on startup
         self.load_entries()
+
+    def change_volume(self, value):
+        """Change the volume of the music."""
+        volume = value / 100  # Convert to float between 0.0 and 1.0
+        pygame.mixer.music.set_volume(volume)  # Set the music volume
 
     def load_entries(self):
         """Load all entries into the list widget."""
@@ -296,14 +309,3 @@ if __name__ == "__main__":
     window = JournalApp()
     window.show()
     sys.exit(app.exec_())
-
-
-
-
-
-
-
-
-
-
-
