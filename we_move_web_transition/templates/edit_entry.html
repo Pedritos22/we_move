@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Entry</title>
+</head>
+<body>
+    <h1>Edit Journal Entry</h1>
+    <form method="POST">
+        <input type="text" name="title" value="{{ entry[1] }}" required>
+        <textarea name="content" required>{{ entry[2] }}</textarea>
+        <input type="text" name="mood" value="{{ entry[3] }}" required>
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
