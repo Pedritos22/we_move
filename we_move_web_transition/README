@@ -1,0 +1,39 @@
+Journal and Self-Goals Web Application
+
+Overview
+
+This web application allows users to maintain a personal journal and manage self-improvement goals. Users can add journal entries with titles, content, and mood ratings, as well as create and manage tasks related to their personal goals. The application is built using Flask, a Python web framework, and stores data using SQLite.
+
+Features
+
+Journal Management:
+Add new journal entries with a title, content, and mood.
+Edit existing journal entries.
+Delete journal entries.
+View all journal entries in a user-friendly format.
+Self-Goals Management:
+Create tasks related to personal goals.
+Mark tasks as complete.
+View all tasks and their completion status.
+
+
+Requirements:
+Python 3.x
+Flask
+SQLite
+
+File structure:
+journal_app/
+│
+├── app.py                  # Main application file
+├── Journal_M.py            # Journal management logic
+├── Self_Goals.py           # Self-goals management logic
+├── templates/              # HTML templates
+│   ├── index.html          # Home page
+│   ├── journal.html        # Journal management page
+│   └── self_goals.html     # Self-goals management page
+└── static/                 # Static files (CSS, JavaScript)
+
+
+
+
