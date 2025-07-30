@@ -129,11 +129,11 @@ class JournalApp(QMainWindow):
 
         # Initialize pygame for playing music
         pygame.mixer.init()
-        pygame.mixer.music.load("/Users/pedritos22/Desktop/relaxing_music.mp3")  # Load your relaxing music file here
-        pygame.mixer.music.set_volume(0.5)  # Set volume (0.0 to 1.0)
+        pygame.mixer.music.load("/Users/pedritos22/Desktop/relaxing_music.mp3")
+        pygame.mixer.music.set_volume(0.5)  
         pygame.mixer.music.play(-1)  # Play the music indefinitely
 
-        # Set window title and dimensions
+        # Windows Dimensions
         self.setWindowTitle("Journal Manager")
         self.setGeometry(300, 200, 600, 400)
         self.setStyleSheet("background-color: #2C2C2C; color: #D3D3D3;")
@@ -145,13 +145,13 @@ class JournalApp(QMainWindow):
 
         # Title Label
         self.title_label = QLabel("Journal Manager", self)
-        self.title_label.setFont(QFont("Arial", 24, QFont.Bold))  # Increased font size
+        self.title_label.setFont(QFont("Arial", 24, QFont.Bold))  
         self.title_label.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(self.title_label)
 
         # Add Entry Button
         self.add_entry_btn = QPushButton("Add Entry", self)
-        self.add_entry_btn.setFont(QFont("Arial", 16))  # Increased font size
+        self.add_entry_btn.setFont(QFont("Arial", 16))  
         self.add_entry_btn.setStyleSheet(
             "background-color: #4A90E2; color: white; border: 1px solid #3A80C2; border-radius: 10px;"
         )
@@ -160,7 +160,7 @@ class JournalApp(QMainWindow):
 
         # Show Entries Button
         self.show_entries_btn = QPushButton("Show All Entries", self)
-        self.show_entries_btn.setFont(QFont("Arial", 16))  # Increased font size
+        self.show_entries_btn.setFont(QFont("Arial", 16))  
         self.show_entries_btn.setStyleSheet(
             "background-color: #4A90E2; color: white; border: 1px solid #3A80C2; border-radius: 10px;"
         )
@@ -200,13 +200,13 @@ class JournalApp(QMainWindow):
         layout = QVBoxLayout(dialog)
 
         # Text edit for the title
-        title_edit = QTextEdit()  # Empty since this is a new entry
+        title_edit = QTextEdit()  
         title_edit.setFixedHeight(40)
         layout.addWidget(QLabel(f"Enter Title (Max {JournalApp.TITLE_MAX_LENGTH} characters):"))
         layout.addWidget(title_edit)
 
         # Text edit for the content
-        content_edit = QTextEdit()  # Empty since this is a new entry
+        content_edit = QTextEdit()  
         layout.addWidget(QLabel("Enter Content:"))
         layout.addWidget(content_edit)
 
@@ -238,11 +238,9 @@ class JournalApp(QMainWindow):
 
         layout = QVBoxLayout(entries_window)
 
-        # List widget to display the entries
         entries_list = QListWidget(entries_window)
         layout.addWidget(entries_list)
 
-        # Fetching all entries
         entries = self.journal.get_all_entries()
 
         if not entries:
@@ -253,7 +251,6 @@ class JournalApp(QMainWindow):
                 item = QListWidgetItem(entry_text)
                 entries_list.addItem(item)
 
-        # Button to close the entries window
         close_button = QPushButton("Close", entries_window)
         close_button.clicked.connect(entries_window.close)
         layout.addWidget(close_button)
@@ -282,7 +279,7 @@ class JournalApp(QMainWindow):
             entries_list.addItem(item)
         layout.addWidget(entries_list)
 
-        # Button to edit the selected entry
+        # Edit Selected Entry
         edit_button = QPushButton("Edit Selected Entry")
         edit_button.clicked.connect(lambda: self.edit_entry(entries_list.currentRow(), entry_selector))
         layout.addWidget(edit_button)
@@ -322,7 +319,7 @@ class JournalApp(QMainWindow):
 
         edit_dialog.setLayout(layout)
         edit_dialog.exec_()
-        dialog.close()  # Close the entry selector dialog after editing
+        dialog.close()  # Close the entry!!!!!
 
     def save_edit_entry(self, entry_number, new_title, new_content, dialog):
         if len(new_title) > JournalApp.TITLE_MAX_LENGTH:
@@ -376,6 +373,7 @@ class JournalApp(QMainWindow):
         dialog.close()
 
 
+#Window app
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = JournalApp()

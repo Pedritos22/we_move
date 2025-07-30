@@ -1,8 +1,8 @@
 import sys
 import tkinter as tk
 from tkinter import ttk
-from Self_Goals import TaskApp  # Ensure TaskApp is properly defined
-from Journal import JournalApp  # Ensure JournalApp is defined
+from Self_Goals import TaskApp  
+from Journal import JournalApp  
 from PyQt5.QtWidgets import QApplication
 
 class MainApp:
@@ -38,11 +38,10 @@ class MainApp:
 
         # Apply a hover effect
         style.map("TButton",
-                  background=[("active", "#FF7B57")])  # Change color on hover
+                  background=[("active", "#FF7B57")]) 
 
     def open_journal_app(self):
-        # Start the PyQt5 application
-        self.master.withdraw()  # Hide the Tkinter window
+        self.master.withdraw() 
         app = QApplication(sys.argv)
 
         # Create the JournalApp instance and show it
@@ -57,11 +56,10 @@ class MainApp:
 
     def open_task_app(self):
         try:
-            # Open Task App in a new window using PyQt5
             app = QApplication(sys.argv)
-            task_app = TaskApp()  # Create the TaskApp instance
+            task_app = TaskApp()
             task_app.show()
-            self.master.withdraw()  # Hide the Tkinter window
+            self.master.withdraw() 
             app.exec_()  # Run the PyQt5 application loop
             self.master.deiconify()  # Re-show the Tkinter window when done
         except Exception as e:

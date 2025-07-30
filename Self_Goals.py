@@ -2,10 +2,9 @@ import sys
 import sqlite3
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton,
-    QLineEdit, QListWidget, QMessageBox, QWidget, QLabel, QInputDialog  # Import QInputDialog here
+    QLineEdit, QListWidget, QMessageBox, QWidget, QLabel, QInputDialog
 )
 from PyQt5.QtCore import Qt
-
 
 class Task:
     def __init__(self, id, description, completed=False):
@@ -19,7 +18,6 @@ class Task:
     def __str__(self):
         status = "[X]" if self.completed else "[ ]"
         return f"{status} {self.description}"
-
 
 class TaskList:
     def __init__(self):
@@ -77,7 +75,6 @@ class TaskList:
 
     def close(self):
         self.conn.close()
-
 
 class TaskApp(QMainWindow):
     def __init__(self):
@@ -191,10 +188,8 @@ class TaskApp(QMainWindow):
         self.task_list.close()
         event.accept()
 
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = TaskApp()
     window.show()
     sys.exit(app.exec_())
-

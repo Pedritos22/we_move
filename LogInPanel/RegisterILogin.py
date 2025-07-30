@@ -68,7 +68,7 @@ def register_user(username, password):
 
 
 def login_user(username, password):
-    """Funkcja logowania użytkownika z odszyfrowaniem hasła."""
+    # Funkcja logowania użytkownika z odszyfrowaniem hasła.
     global logged_in_user
     conn = connect_to_db(DATABASE_NAME)
     if not conn:
@@ -103,7 +103,7 @@ def login_user(username, password):
 
 
 def logout_user():
-    """Funkcja wylogowująca aktualnie zalogowanego użytkownika."""
+    # Funkcja wylogowująca aktualnie zalogowanego użytkownika.
     global logged_in_user
     if logged_in_user:
         messagebox.showinfo("Wylogowanie", f"Wylogowano użytkownika: {logged_in_user}")
@@ -113,7 +113,7 @@ def logout_user():
 
 
 def show_registered_users():
-    """Funkcja wyświetlająca zarejestrowanych użytkowników oraz ich haseł."""
+    # Funkcja wyświetlająca zarejestrowanych użytkowników oraz ich haseł.
     conn = connect_to_db(DATABASE_NAME)
     if not conn:
         return
@@ -143,7 +143,7 @@ def show_registered_users():
 
 
 def show_main_menu():
-    """Funkcja wyświetlająca główne menu."""
+    # Funkcja wyświetlająca główne menu.
     clear_window()
 
     tk.Label(root, text="Panel Główny", font=("Arial", 16, 'bold')).pack(pady=20)
@@ -167,7 +167,7 @@ def show_main_menu():
 
 
 def show_register_window():
-    """Funkcja wyświetlająca okno rejestracji."""
+    # Funkcja wyświetlająca okno rejestracji.
     clear_window()
 
     tk.Label(root, text="Rejestracja", font=("Arial", 16, 'bold')).pack(pady=20)
@@ -193,7 +193,7 @@ def show_register_window():
 
 
 def on_register(username, password):
-    """Funkcja obsługująca rejestrację użytkownika."""
+    # Funkcja obsługująca rejestrację użytkownika.
     if username and password:
         register_user(username, password)
         show_main_menu()  # Powrót do głównego menu po rejestracji
@@ -202,7 +202,7 @@ def on_register(username, password):
 
 
 def show_login_window():
-    """Funkcja wyświetlająca okno logowania."""
+    # Funkcja wyświetlająca okno logowania.
     clear_window()
 
     tk.Label(root, text="Logowanie", font=("Arial", 16, 'bold')).pack(pady=20)
@@ -228,7 +228,7 @@ def show_login_window():
 
 
 def on_login(username, password):
-    """Funkcja obsługująca logowanie użytkownika."""
+    # Funkcja obsługująca logowanie użytkownika.
     if username and password:
         if login_user(username, password):
             show_main_menu()  # Powrót do głównego menu po zalogowaniu
@@ -239,13 +239,13 @@ def on_login(username, password):
 
 
 def clear_window():
-    """Funkcja czyszcząca zawartość okna."""
+    # Funkcja czyszcząca zawartość okna.
     for widget in root.winfo_children():
         widget.destroy()
 
 
 def main():
-    """Główna funkcja uruchamiająca aplikację."""
+    # Główna funkcja uruchamiająca aplikację.
     global root
     root = tk.Tk()
     root.title("Rejestracja i Logowanie")

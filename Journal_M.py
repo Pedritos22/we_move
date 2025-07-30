@@ -4,7 +4,7 @@ import time
 import pygame
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QVBoxLayout, QPushButton, QLabel, QMessageBox,
-    QInputDialog, QWidget, QDialog, QListWidget, QListWidgetItem, QTextEdit, QComboBox
+    QWidget, QDialog, QListWidget, QListWidgetItem, QTextEdit, QComboBox
 )
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
@@ -18,7 +18,7 @@ class Journal:
         self.create_table()
 
     def create_connection(self):
-        """Create a database connection."""
+        # Create a database connection.
         try:
             return sqlite3.connect(Journal.DB_FILE)
         except sqlite3.Error as e:
@@ -26,7 +26,7 @@ class Journal:
         return None
 
     def create_table(self):
-        """Create the journal_entries table if it doesn't exist."""
+        # Create the journal_entries table if it doesn't exist.
         try:
             with self.conn:
                 self.conn.execute('''
@@ -43,7 +43,7 @@ class Journal:
             print(f"Error creating table: {e}")
 
     def add_new_entry(self, title, content, mood):
-        """Add a new journal entry."""
+        # Add a new journal entry.
         entry_date = time.strftime("%d-%m-%Y", time.localtime())
         entry_number = self.get_next_entry_number()
 
@@ -61,7 +61,7 @@ class Journal:
             return "Failed to determine next entry number."
 
     def get_next_entry_number(self):
-        """Get the next available entry number from the database."""
+        # Get the next available entry number from the database.
         try:
             cursor = self.conn.cursor()
             cursor.execute('SELECT MAX(number) FROM journal_entries')
@@ -72,7 +72,7 @@ class Journal:
             return None
 
     def get_all_entries(self):
-        """Get all journal entries."""
+        # Get all journal entries.
         try:
             cursor = self.conn.cursor()
             cursor.execute('SELECT * FROM journal_entries ORDER BY number')
@@ -82,7 +82,7 @@ class Journal:
             return []
 
     def get_entry_by_number(self, entry_number):
-        """Get a specific journal entry by its number."""
+        # Get a specific journal entry by its number.
         try:
             cursor = self.conn.cursor()
             cursor.execute('SELECT * FROM journal_entries WHERE number = ?', (entry_number,))
@@ -91,7 +91,7 @@ class Journal:
             return None
 
     def edit_entry(self, entry_number, new_title=None, new_content=None, new_mood=None):
-        """Edit the title, content, or mood of an existing entry."""
+        # Edit the title, content, or mood of an existing entry.
         try:
             with self.conn:
                 self.conn.execute('''
@@ -104,7 +104,7 @@ class Journal:
             return f"Error updating entry: {e}"
 
     def delete_entry(self, entry_number):
-        """Delete an entry by its number."""
+        # Delete an entry by its number.
         try:
             with self.conn:
                 self.conn.execute('DELETE FROM journal_entries WHERE number = ?', (entry_number,))
@@ -114,7 +114,7 @@ class Journal:
             return f"Error deleting entry: {e}"
 
     def renumber_entries(self):
-        """Renumber the entries after a deletion."""
+        # Renumber the entries after a deletion.
         try:
             entries = self.get_all_entries()
             for index, entry in enumerate(entries):
@@ -184,7 +184,7 @@ class JournalApp(QMainWindow):
         self.load_entries()
 
     def load_entries(self):
-        """Load all entries into the list widget."""
+        # Load all entries into the list widget.
         self.entry_list.clear()  # Clear the current list
         entries = self.journal.get_all_entries()
         for entry in entries:
@@ -193,7 +193,7 @@ class JournalApp(QMainWindow):
             self.entry_list.addItem(item)
 
     def add_entry(self):
-        """Show a dialog to add a new journal entry."""
+        # Show a dialog to add a new journal entry.
         dialog = QDialog(self)
         dialog.setWindowTitle("Add New Entry")
         dialog.setGeometry(300, 200, 400, 400)
@@ -225,7 +225,7 @@ class JournalApp(QMainWindow):
         dialog.exec_()
 
     def save_entry(self, title_edit, content_edit, mood_combo):
-        """Save the new journal entry."""
+        # Save the new journal entry.
         title = title_edit.toPlainText()[:JournalApp.TITLE_MAX_LENGTH]
         content = content_edit.toPlainText()
         mood = mood_combo.currentText()
@@ -234,13 +234,13 @@ class JournalApp(QMainWindow):
         self.load_entries()  # Refresh the entry list after adding
 
     def show_entry_details(self, item):
-        """Show the details of the clicked entry."""
+        # Show the details of the clicked entry.
         entry = item.data(Qt.UserRole)  # Get the full entry data
         if entry:
             self.show_entry_dialog(entry)
 
     def show_entry_dialog(self, entry):
-        """Show a dialog for viewing or editing the entry."""
+        # Show a dialog for viewing or editing the entry.
         dialog = QDialog(self)
         dialog.setWindowTitle(f"Entry #{entry[1]}")
         dialog.setGeometry(300, 200, 400, 400)
@@ -277,14 +277,14 @@ class JournalApp(QMainWindow):
         dialog.exec_()
 
     def edit_entry(self, entry_number, new_content, new_mood, dialog):
-        """Edit the existing journal entry."""
+        # Edit the existing journal entry.
         result = self.journal.edit_entry(entry_number, new_content=new_content, new_mood=new_mood)
         QMessageBox.information(self, "Entry Status", result)
         dialog.accept()  # Close the dialog
         self.load_entries()  # Refresh the entry list after editing
 
     def delete_entry(self, entry_number, dialog):
-        """Delete the specified journal entry."""
+        # Delete the specified journal entry.
         result = self.journal.delete_entry(entry_number)
         QMessageBox.information(self, "Entry Status", result)
         dialog.accept()  # Close the dialog
